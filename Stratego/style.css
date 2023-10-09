@@ -1,0 +1,99 @@
+body{
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    margin: 0px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0 100%), url(backimg.jpg);
+    background-size: 150%;
+    position: relative;
+    opacity: 1;
+}
+
+.rectangle {
+    height: 70vh;
+    width: 40vw;
+    background: #dddddd25;
+    border-radius: 2vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vw;
+    position: relative;
+    border: #ddd solid;
+    border-width: 0.0vw;
+    box-shadow: 0 1vw 2vw 0 rgba(0, 0, 0, 0.5), 0 2vw 5vw 0 rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1 {
+    text-align: center;
+    position: relative;
+    font-size: 10vh;
+    margin-top: 0vh;
+}
+
+.h2 {
+    text-align: center;
+    color: #222;
+    font-size: 6vh;
+    margin-bottom: 1vw;
+    font-family: Bodoni MT;
+    font-weight: bold;
+    margin-top: -1vw;
+}
+
+.create-btn {
+    background: rgb(15,76,29);
+    background: linear-gradient(90deg, rgba(15,76,29,1) 0%, rgba(40,167,69,1) 100%);
+    color: #ddd;
+    border-width: 0.15vw;
+    border-color: #222;
+    border-radius: 3vw;
+    font-size: 2.5vw;
+    padding: 1vw 2vw;
+    margin-bottom: 4vw;
+    font-family: Bodoni MT;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.create-btn:hover{
+    opacity: 1;
+}
+
+.join-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.join-input {
+    background: rgb(15,76,29);
+    background: linear-gradient(90deg, rgba(15,76,29,1) 0%, rgba(40,167,69,1) 100%);
+    border-width: 0.15vw;
+    border-color: #222;
+    border-radius: 3vw;
+    font-size: 2vw;
+    padding: 1.25vw 2.1vw;
+    margin-right: 0vw;
+    font-family: Bodoni MT;
+    color: #ddd;
+    width: 6.5vw;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.join-input:hover{
+    opacity: 1;
+}
+
+.logo{
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.5));
+    width: 35vw;
+    margin-top: 1vh;
+    margin-left: 32.5vw;
+}

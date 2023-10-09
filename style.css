@@ -1,0 +1,116 @@
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f0f0f2;
+    color: #33333c;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+header {
+    margin-top: 4vh;
+    background-color: #33333c;
+    color: #f0f0f0;
+    padding: 10px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 40px;
+}
+
+#projects {
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+#projects ul {
+    margin-top: 20px;
+    list-style: none;
+}
+
+#projects li {
+    margin: 10px 0;
+}
+
+#contact a {
+    color: #33333c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#contact {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#emailaddress:hover{
+    text-decoration: underline;
+}
+
+.footer{
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#navlink{
+    color:#fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    opacity: 1;
+    position: relative;
+    transition: 150ms ease-in-out;
+}
+
+#navlink:hover{
+    opacity: 0.6;
+}
+
+#projects{
+    background-color: #33333c;
+    align-items: stretch;
+}
+
+.project{
+    background-color: #f0f0f0;
+    margin: 10px;
+    width: 200px;
+    display: inline-block;
+    padding: 20px;
+    border-radius: 10px;
+    height: auto;
+    object-fit: cover;
+    transition: 150ms ease-in-out;
+}
+
+#projectPics{
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    margin-top: 5px;
+    border-radius: 5px;
+    transition: 150ms ease-in-out;
+
+}
+
+#projectLink{
+    font-weight: bold;
+    color: #33333c;
+    text-decoration: none;
+}
+
+#projectLink:hover{
+    text-decoration: underline;
+}

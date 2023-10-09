@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <canvas id="sudokuCanvas" width="450" height="450"></canvas>
+        <script>
+            window.onload = function(){
+                var canvas = document.getElementById("sudokuCanvas");
+                var context = canvas.getContext("2d");
+
+                var cellSize = 50;
+                var lineWidth = 2;
+                var boldLineWidth = 4;
+
+                var numLeft = 25;
+
+                context.font = "30px Arial";
+
+                var board = [
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0],];
+
+                function newBoard(){
+                    board[0] = newRow();
+
+                    for(let i = 1; i < 9; i++){
+                        pos = 3;
+                        if(i % 3 == 0){
+                            pos = 1;
+                        }
+                        board[i] = shift(board[i-1], pos);
+                    }
+
+                    for(let i = 0; i < 8; i++){
+                        if((i+1) % 3 == 0){
+                            i+= 1;
+                        }
+                        if(Math.random() > 0){
+                            swapRows(board, i, i+1)
+                        }
+                    }
+
+                    for(let i = 0; i < 8; i++){
+                        if((i+1) % 3 == 0){
+                            i+= 1;
+                        }
+                        if(Math.random() > 0.5){
+                            swapColumns(board, i, i+1)
+                        }
+                    }
+
+                    unSolve(board, numLeft);
+                }
+                
+                function newRow(){
+                    var row = [0,0,0,0,0,0,0,0,0];
+                    for(let i = 9; i > 0; i--){
+                        var pos = 8-Math.floor(Math.random()*9);
+                        while(row[pos] != 0){
+                            pos = 8-Math.floor(Math.random()*9);
+                        }
+                        //alert(pos);
+                        row[pos] = i;
+                    }
+                    //console.table(row);
+                    return row;
+                }
+
+                function shift(row, numSlots){
+                    var tempRow = copyArray(row);
+                    for(let i = 0; i < row.length; i++){
+                        var pos = i+numSlots;
+                        if(pos > 8){pos = Math.abs(pos-9)}
+                        tempRow[i] = row[pos]; 
+                    }
+                    //console.table(row)
+                    //console.table(tempRow);
+                    return tempRow;
+                }
+
+                function copyArray(row){
+                    //console.log(row);
+                    var tempRow = [0,0,0,0,0,0,0,0,0]
+                    for(let i = 0; i < row.length; i++){
+                        tempRow[i] = row[i];
+                    }
+                    return tempRow
+                }
+
+                function swapRows(board, row1, row2){
+                    let tempRow = copyArray(board[row1]);
+                    board[row1] = copyArray(board[row2]);
+                    board[row2] = copyArray(tempRow);
+                }
+
+                function swapColumns(board, column1, column2){
+                    let tempColumn = copyArray(board[0]);
+                    for(let i = 0; i < 9; i++){
+                        tempColumn[i] = board[i][column1];
+                    }
+                    for(let i = 0; i < 9; i++){
+                        board[i][column1] = board[i][column2];
+                    }
+                    for(let i = 0; i < 9; i++){
+                        board[i][column2] = tempColumn[i];
+                    }
+                }
+
+                function makeGrid(){
+                    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+                    for (var i = 0; i <= 9; i++) {
+                        if (i % 3 === 0) {
+                        context.lineWidth = boldLineWidth;
+                        } else {
+                        context.lineWidth = lineWidth;
+                        }
+                        context.beginPath();
+                        context.moveTo(0, i * cellSize);
+                        context.lineTo(canvas.width, i * cellSize);
+                        context.stroke();
+
+                        if (i % 3 === 0) {
+                        context.lineWidth = boldLineWidth;
+                        } else {
+                        context.lineWidth = lineWidth;
+                        }
+                        context.beginPath();
+                        context.moveTo(i * cellSize, 0);
+                        context.lineTo(i * cellSize, canvas.height);
+                        context.stroke();
+
+                        
+                    }
+                    for(let i = 0; i < 9; i++){
+                        for(let j = 0; j < 9; j++){
+                            if(board[i][j] != 0){
+                                context.fillText(board[i][j], 50*(i) + 17.5, 50*(j+1) - 12.5)
+                            }
+                        }
+                    }
+                    
+                }
+                
+                function unSolve(board, numLeft){
+                    numToDelete = 81-numLeft;
+                    
+                    for(let i = 0; i < numToDelete; i++){
+                        deleteNum();
+                        function deleteNum(){
+                            let x = Math.floor(Math.random()*9);
+                            let y = Math.floor(Math.random()*9);
+                            if(board[x][y] == 0){
+                                deleteNum();
+                            }
+                            else{
+                                board[x][y] = 0;
+                            }
+                        }
+                    }
+                }
+
+                newBoard();
+                makeGrid();
+
+                document.getElementById('wow').onclick = function(){
+                    newBoard();
+                    makeGrid();
+                };
+
+                document.getElementById('slider').oninput = function(){
+                    numLeft = document.getElementById("slider").value;
+                };
+                
+            }
+        </script>
+        <div></div>
+        <input type="range" min="17" max="80" value="25" id="slider">
+        <div></div>
+        <button type="button" id="wow">New Sudoku</button>
+    </body>
+</html>

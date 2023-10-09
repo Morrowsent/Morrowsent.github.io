@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" type="image/icon" href="/favicon.ico">
+        <link rel="stylesheet" href="style.css" type="text/css"> 
+        <script>
+            document.addEventListener('mousemove', function(e) {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                if((mouseX < window.innerWidth/3.4 || mouseX > window.innerWidth-window.innerWidth/3.4) && mouseY < window.innerHeight*0.9){
+                    const horizontalScroll = window.innerWidth / 9999999999 - mouseX/40;
+                    const verticalScroll = window.innerHeight / 9999999999 - mouseY/40;
+                    document.body.style.backgroundPositionX = `${horizontalScroll}px`;
+                    document.body.style.backgroundPositionY = `${verticalScroll}px`;
+                }
+            });
+        </script>
+        <title>Stratego Lobby</title>
+    </head>
+    <body style="margin: 0; height: 100%; overflow: hidden">
+        <script>
+            function imagine(){
+                location.href = "Stratego-Loadout.html"
+            }
+        </script>
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/64/Stratego_logo.svg" alt="">
+        <div class="rectangle">
+            <h2 class="h2">Create a Game</h2>
+            <button class="create-btn" onclick="imagine()">Create</button>
+            <h2 class="h2">Join a Game</h2>
+            <form class="join-form" action="/join-game">
+                <input class="join-input" type="text" id="game-code" name="game-code" placeholder="123-456" maxlength="7">
+            </form>
+            <script>
+                var input = document.getElementById("game-code");
+
+                input.addEventListener("input", function(event) {
+                    var value = input.value;
+                    value = value.replace(/-/g, '');
+                    if (value.length > 3) {
+                        value = value.slice(0, 3) + '-' + value.slice(3);
+                    }
+                    input.value = value;
+                });
+            </script>
+        </div>
+        <a href="HowToPlay.html" style="font-weight: bolder;">How to play</a>
+    </body>
+</html>
