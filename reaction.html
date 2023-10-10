@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Time Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+            margin: 0;
+            margin-top: 20px;
+        }
+        #colorBox {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="formContainer">
+        <h2>Enter Your Information</h2>
+        <form id="infoForm">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br><br>
+
+            <label for="gender">Sex:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Intersex</option>
+            </select><br><br>
+
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" required><br><br>
+            <input type="submit" value="Start Test">
+        </form>
+    </div>
+
+    <div id="colorBox" style="display: none;">Click to Start</div>
+    <div id="results" style="display: none;">
+        <h2>Results</h2>
+        <p>Red: <span id="redResult">0 ms</span></p>
+        <p>Green: <span id="greenResult">0 ms</span></p>
+        <p>Blue: <span id="blueResult">0 ms</span></p>
+        <p>Yellow: <span id="yellowResult">0 ms</span></p>
+    </div>
+
+    <script type="module">
+        import * as firebase from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"
+        const maxRuns = 17;
+        const infoForm = document.getElementById("infoForm");
+        const colorBox = document.getElementById("colorBox");
+        const results = document.getElementById("results");
+
+        // Variables to store user information
+        let age, gender, name;
+
+        infoForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            // Get user information from the form
+            age = document.getElementById("age").value;
+            gender = document.getElementById("gender").value;
+            name = document.getElementById("name").value;
+
+            // Hide the form and show the color reaction test
+            document.getElementById("formContainer").style.display = "none";
+            colorBox.style.display = "block";
+
+            colorBox.style.width = "100vw";
+            colorBox.style.height = "100vh";
+            colorBox.style.position = "fixed";
+
+        });
+
+        let startTime, endTime, reactionTime, numRuns = 0;
+        let colorIndex = 0;
+        var colors = ["red", "green", "blue", "yellow"];
+        const reactionTimes = {
+            red: [],
+            green: [],
+            blue: [],
+            yellow: [],
+        };
+
+        var currentColor = "";
+
+        function getRandomColor() {
+            if(colors.length == 1){
+                var theLast = colors[0];
+                colors = ["red", "green", "blue", "yellow"];
+                return theLast;
+            }   
+            else{
+                colorIndex = Math.floor(Math.random() * colors.length);
+                var temp = ""+colors[colorIndex];
+                colors[colorIndex] = ""+colors[colors.length-1];
+                colors[colors.length-1] = temp;
+                return colors.pop();
+            }
+            
+        }
+
+        function displayColor() {
+            colorBox.style.width = "200px";
+            colorBox.style.height = "200px";
+            colorBox.style.position = "initial";
+            colorBox.style.backgroundColor = "black";
+            colorBox.innerText = "Wait...";
+            const color = getRandomColor();
+            currentColor = color;
+            setTimeout(function(){
+                colorBox.style.width = "100vw";
+                colorBox.style.height = "100vh";
+                colorBox.style.position = "fixed";
+                colorBox.style.backgroundColor = color;
+                colorBox.innerText = color.toUpperCase();
+                startTime = new Date();
+            }, Math.random()*4000+1000);
+        }
+
+        function displayResults() {
+            for (const color of colors) {
+                const resultSpan = document.getElementById(`${color}Result`);
+                const avgReactionTime = calculateAverage(reactionTimes[color]);
+                console.log(color + ": " + reactionTimes[color]);
+                resultSpan.textContent = `${avgReactionTime.toFixed(2)} ms`;
+            }
+            sendItOff();
+        }
+
+        function calculateAverage(arr) {
+            if (arr.length === 0) return 0;
+            const sum = arr.reduce((acc, val) => acc + val, 0);
+            
+            return sum / arr.length;
+        }
+
+        colorBox.addEventListener("click", function () {
+            if (numRuns < maxRuns) {
+                endTime = new Date();
+                if(numRuns > 0){
+                    reactionTime = endTime - startTime;
+                    reactionTimes[currentColor].push(reactionTime);
+                }
+                numRuns++;
+                if (numRuns < maxRuns) {
+                    displayColor();
+                } else {
+                    displayResults();
+                    colorBox.style.display = "none";
+                    results.style.display = "block";
+                }
+            }
+        });
+
+        colorBox.style.backgroundColor = "black";
+        colorBox.innerText = "Start";
+
+        // ADIOS AMIGO
+        function sendItOff(){
+            var firebaseConfig = {
+                apiKey: "AIzaSyC3ovgl1l5VLtyupCO6FTErd2w_nUAuQDw",
+                projectId: "shaped-radius-401009",
+            };
+            
+            firebase.initializeApp(firebaseConfig);
+            var db = getFirestore();
+
+            var finalAge = document.getElementById("age").value;
+            var finalGender = document.getElementById("gender").value;
+            var finalName = document.getElementById("name").value;
+
+            addDoc(collection(db, "testData"), {
+                Age: finalAge,
+                Gender: finalGender,
+                Name: finalName,
+                Red: reactionTimes["red"],
+                Yellow: reactionTimes["yellow"],
+                Green: reactionTimes["green"],
+                Blue: reactionTimes["blue"],
+            });
+        }
+    </script>   
+</body>
+</html>
