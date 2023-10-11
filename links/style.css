@@ -114,10 +114,14 @@ h2 {
     font-weight: bold;
 }
 
+#archiveHolderer{
+    width: 565px;
+    margin-left:auto;
+    margin-right:auto;
+    
+}
 
 #archiveHolder{
-    margin-left: 20vw;
-    margin-right: 20vw;
     margin-top: 20px;
     height: 20px;
     display:flex;
