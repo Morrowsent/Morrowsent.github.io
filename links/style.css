@@ -155,6 +155,10 @@ h2 {
     color: blueviolet;
 }
 
+.archiveLink#other{
+    color: orange;
+}
+
 #archiveNum{
     float: right;
 }
