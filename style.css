@@ -1,6 +1,10 @@
-body, h1, h2, h3, p, ul {
+body, h1, h2, p, ul {
     margin: 0;
     padding: 0;
+}
+
+h3{
+    font-weight: lighter;
 }
 
 body {
@@ -84,73 +88,54 @@ h2 {
 }
 
 .project{
-    background-color: #f0f0f0;
+    position: absolute;
     margin: 10px;
     width: 200px;
     display: inline-block;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 0px;
     height: 200px;
     object-fit: cover;
     transition: 150ms ease-in-out;
     position: relative;
+    opacity: 1;
+}
+
+.project:hover #projectPics #pic{
+    transition: 150ms ease-in-out;
+    transform: scale(1.3);
+    opacity: 0.4;
+}
+
+.project:hover #projectHead{
+    opacity: 1;
 }
 
 #projectPics{
-    height: 150px;
-    width: 150px;
-    object-fit: cover;
-    margin-top: 5px;
-    border-radius: 5px;
+    display: block;
+    height: 200px;
+    border-radius: 20px;
     opacity: 1;
     transition: 150ms ease-in-out;
+    overflow: hidden;
 }
 
-#projectPics:hover{
-    opacity: 0.75;
+#pic{
+    transition: 150ms ease-in-out;
+    object-fit: cover; 
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 #projectHead{
+    opacity: 0;
     font-weight: bold;
-}
-
-
-#archiveHolder{
-    margin-left: 20vw;
-    margin-right: 20vw;
-    margin-top: 20px;
-    height: 20px;
-    display:flex;
-}
-
-#archiveNumHolder{
-    float: left;
-    color: #888;
-    width: 40px;
-    height: 40px;
     position: absolute;
-}
-
-.archiveLink{
-    text-decoration: none;
-    font-weight: bold;
-    float: left;
-    margin-left: 70px;
-    text-align: left;
-}
-
-.archiveLink:hover{
+    width: 200px;
+    height: 20px;
+    margin-top: 90px;
+    z-index: 1;
+    color: #f0f0f2;
     text-decoration: underline;
-}
-
-.archiveLink#essay{
-    color: red;
-}
-
-.archiveLink#tool{
-    color: blueviolet;
-}
-
-#archiveNum{
-    float: right;
 }
