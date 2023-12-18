@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="math.js"></script>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <header>
+            <p id="navlinkholder">
+                🚪<a id="navlink" href="/">Home</a> \
+                👾<a id="navlink" href="/projects/">Projects</a> \
+                📝<a id="navlink" href="/writing/">Writing</a> \
+                🏛️<a id="navlink" href="/links/">Collection</a> 
+            </p>
+        </header>
+        <script src="dice.js"></script>
+
+        <style>
+            .formholder{
+                background-color: #33333c; 
+                margin-top: 50px;
+                padding: 20px; 
+                margin-left: auto; 
+                margin-right: auto; 
+                width: 400px; 
+                border-radius: 5px;
+                padding-bottom: 100px;
+            }
+
+            .qtext{
+                color: white; 
+                margin-bottom: 5px;
+                margin-top: 20px;
+                font-weight: bold;
+            }
+
+            .rollButton{
+                margin-top: 100px;
+            }
+        </style>
+
+        <div class="formholder">
+            <div style="color: white;">
+                Rolling with advantage, or
+            </div>
+            <div style="color: white;">
+                Rolling dice and picking the highest
+            </div>
+            
+
+            <div class="qtext">How many sides on your dice?</div>
+            <input type="number" id="sidecount" min="0">
+            
+            <div class="qtext">How many dice are you rolling?</div>
+            <input type="number" id="dicecount" min="1">
+            <br></br>
+            <input type="submit" value="Roll the Dice" onclick="main()">
+        </div>
+        
+        <div class="footer">
+            <section id="contact">
+                <p>
+                    Contact me at <a id="emailaddress" href="mailto:morris@morrowsent.com">morris@morrowsent.com</a>.
+                </p>
+            </section>
+        </div>
+    </body>
+</html>

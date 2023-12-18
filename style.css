@@ -87,36 +87,8 @@ h2 {
     align-items: stretch;
 }
 
-.project{
-    position: absolute;
-    margin: 10px;
-    width: 200px;
-    display: inline-block;
-    padding: 0px;
-    height: 200px;
-    object-fit: cover;
-    transition: 150ms ease-in-out;
-    position: relative;
-    opacity: 1;
-}
-
-.project:hover #projectPics #pic{
-    transition: 150ms ease-in-out;
-    transform: scale(1.3);
-    opacity: 0.4;
-}
-
 .project:hover #projectHead{
     opacity: 1;
-}
-
-#projectPics{
-    display: block;
-    height: 200px;
-    border-radius: 20px;
-    opacity: 1;
-    transition: 150ms ease-in-out;
-    overflow: hidden;
 }
 
 #pic{
@@ -138,4 +110,46 @@ h2 {
     z-index: 1;
     color: #f0f0f2;
     text-decoration: underline;
+}
+
+.card {
+    position: absolute;
+    margin: 10px;
+    width: 200px;
+    display: inline-block;
+    padding: 0px;
+    height: 200px;
+    object-fit: cover;
+    transition: 150ms ease-in-out;
+    position: relative;
+    opacity: 1;
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.card:hover .content {
+    transform: rotateX( 180deg ) ;
+    transition: transform 0.5s;
+}
+
+.front,
+.back {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    backface-visibility: hidden;
+}
+
+.back {
+    background: #222255;
+    transform: rotateX(180deg);
 }
